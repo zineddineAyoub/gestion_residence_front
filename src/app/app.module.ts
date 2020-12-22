@@ -58,7 +58,7 @@ import { ArticleFormComponent } from './Articles/article-form/article-form.compo
 
 
     AgmCoreModule.forRoot({
-      apiKey: 'XXXXXXXXXXXXXXXXXXXXXXXXXX'
+      apiKey: 'XXXXXXXXXXXXXXXXXXXXXXXXX'
 
     }),
     RouterModule.forRoot([
