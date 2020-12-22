@@ -1,0 +1,23 @@
+<div class="alert alert-danger"  *ngIf="notFound; else noArticle" >
+    {{error}}
+    Not Found
+</div>
+
+<ng-template #noArticle> 
+  <div *ngFor="let article of articles" class="card mb-3">
+    <div class="row">
+      <div class="col-8">
+        <div class="card-body">
+          <h6 class="title">Publié le {{article.created_at}}</h6>
+          <h3 ><b>{{article.title}}</b></h3>
+          <p class="content">{{article.content}}</p>
+        </div>
+       
+      </div>
+
+      <div class="col-4 mx-auto" *ngIf="article.picture != null">
+       <img src="{{link}}{{article.picture}}" alt="{{article.title}}" width="100%">
+      </div>
+    </div>
+  </div>
+</ng-template>

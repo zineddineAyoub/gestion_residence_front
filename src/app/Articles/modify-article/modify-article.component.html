@@ -1,0 +1,50 @@
+<div class="alert alert-danger"  *ngIf="-1 > 0; else noArticle" >
+    {{error}}
+</div>
+
+<ng-template #noArticle > 
+  <div class="p-3 title">
+  <h3 style="text-align: center;" class="p-2">Modifier ou Supprimer un Article</h3>
+  <div class="alert alert-success" *ngIf="deleted">
+    Article deleted successfully
+</div>
+<div class="alert alert-danger" *ngIf="error">
+   An Error Happened ! 
+</div>
+      <table class="table table-striped table-bordered " style="text-align: center;"> 
+          <thead>
+            <tr >
+              <th>Titre</th>
+              <th>Categorie</th>
+              <th>Position</th>
+              <th>Publié </th>
+              <th>Action</th>
+             </tr>
+
+          </thead>
+               
+          <tbody>
+            <tr *ngFor="let article of articles" >
+                <td>{{article.title}}</td>
+                <td>{{article.category.name_category}}</td>
+                <td>{{article.position}}</td>
+                <td>{{article.created_at}}</td>
+                <td >
+                  <a [routerLink]="['/article',article.id_article]">
+                    <input type="image" src="/assets/icons/show2.png">
+                  </a>
+                  <a [routerLink]="['/editArticle',article.id_article]">
+                    <input type="image" src="/assets/icons/edit2.png">
+                  </a>
+                  <input (click)="deleteArticle(article)" type="image" src="/assets/icons/delete2.png">
+                
+              </td>
+               
+              </tr>
+          </tbody>
+
+      </table>
+    </div>
+</ng-template>
+
+

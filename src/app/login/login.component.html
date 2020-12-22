@@ -1,0 +1,45 @@
+<div class="all p-5 ">  
+  <div *ngIf="form.errors" class="alert alert-danger">
+    The user or password is invalid
+    </div>
+    
+    <div >
+    
+    <div class="card border-dark okey mt-5 col-7 p-0" >
+        <div class="pr-3 pl-3 bgcolor">
+            <div class="card-header"><label>Login</label></div>
+            <div class="row">
+                
+                <div>
+                    <div class="card-body">
+                        <div>
+                            <form [formGroup]="form" (ngSubmit)="login()">
+                                <div class="form-group">
+                                    <label for="username">username</label>
+                                    <input formControlName="email" name="email" id="email" type="text" class="form-control" >    
+                                </div>
+                               
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input formControlName="password" name="password"  id="password" type="password" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                  <button class="btn btn-success form-control">Submit</button>
+                                  </div>
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        
+    </div>
+    
+   
+    </div>
+    
+    
+</div>
+

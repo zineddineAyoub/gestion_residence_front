@@ -1,0 +1,83 @@
+
+<div class="m-3 p-3 title">
+<h3 style="text-align: center;" class="p-2 ">
+   <div *ngIf="addComponent">Ajouter Article</div>
+   <div *ngIf="editComponent">Modifier Article</div>
+</h3>
+<div class="alert alert-danger" *ngIf="form.errors">
+    Error inserting this
+</div>
+
+<div class="alert alert-success" *ngIf="success">
+    Article Enregistré avec succées !
+</div>
+<form (keydown.enter)="$event.target.tagName == 'TEXTAREA'" [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+    <div class="form-group">
+        <label for="title">Titre</label>
+        <input  formControlName="title" name="title" id="title" type="text" placeholder="Titre Article"  class="form-control" required >
+    </div>
+
+    <div class="form-group">
+        <label for="content">Contenue</label>
+         <ckeditor formControlName="content" [editor]="Editor" ></ckeditor>
+         </div>
+   
+
+    <div class="form-group">
+        <label for="picture">Image</label>
+        <input (change)="fileEvent($event)" formControlName="picture" name="picture" id="picture"  type="file" class="form-control" >
+    </div>
+
+    <div class="form-group">
+        <label for="position">position</label>
+        <input formControlName="position" name="position" id="position" type="text"  placeholder="main" required class="form-control" >
+    </div>
+
+    <div class="form-group">
+        <label for="meta_description">Meta Description</label>
+        <input formControlName="meta_description" name="meta_description" id="meta_description" type="text" placeholder="Meta Description" class="form-control" >
+    </div>
+
+    <div class="form-group">
+        <label for="meta_keywords">Meta Key Words</label>
+        <input formControlName="meta_keywords" name="meta_keywords" id="meta_keywords" type="text" placeholder="meta,key,words" class="form-control" >
+    </div>
+
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select [formControl]="id_category" formControlName="id_category" id="category" class="form-control">
+            <option value="">-- Categorie --</option>
+            <option *ngFor="let category of categories" [value]="category.id_category">
+                {{category.name_category}}
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="category">Tags</label>
+        <div class="row">
+            <div class="col-3">
+               
+        <input type="text" formControlName="tag" class="form-control" (keyup.enter)="addNewTag()" (keyup)="typed()" placeholder="Entrer un tag">
+        <ul class="list-group">
+            <button *ngFor="let tag of list_tags" (click)="addTag(tag)" type="button" class="list-group-item list-group-item-action">{{tag.name_tag}}</button>
+        </ul>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-6">
+                <ul class="list-group">
+                    <div >
+                        <button *ngFor="let selectedTag of selectedTags" type="button" class="btn btn-outline-primary m-2">{{selectedTag.name_tag}}<span class="pl-3 close" (click)="deleteTag(selectedTag)">x</span></button>
+                    </div>
+                     </ul>
+            </div>
+        </div>
+       
+    </div>
+    <div style="text-align: center;">
+        <input type="submit" class="btn btn-success  m-3 col-4" value="Enregistrer" >
+       </div>
+   
+</form>
+</div>
+
+

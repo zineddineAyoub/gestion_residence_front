@@ -1,0 +1,165 @@
+<div  class="pb-3" *ngIf="loaded">
+
+    <div *ngIf="notFound; else found">
+        <app-not-found>
+
+        </app-not-found>
+    </div>
+
+    <ng-template #found>
+      <div class="title m-3 p-3">
+        <div class="pt-3"> 
+            <h5 style="text-align: center;" class="p-2">Fiche Réclamation : {{reclamation.code_reclamation}}</h5>   
+            <div  *ngFor="let state of reclamation.reclamation_states; let last=last">
+                <div *ngIf="last==true" class="p-2">
+                    <div class="col">
+                        <h3 style="text-align: center;" > Etat Réclamation : {{state.name_reclamation_state}} </h3>
+                    </div>
+            
+                    <div class="col">
+                       
+                    </div>
+                </div>
+            </div>
+            
+            <div class="m-3" *ngIf="serviceAuth.isLoggedIn()" >
+                <hr>
+                <div class="row">
+                   
+                    <div class="col-2">
+                        <label for="type">Changer l'état</label>
+                    </div>
+                    <div class="col-4">
+                        <select [(ngModel)]="new_state" id="type" class="form-control" aria-placeholder="State" >
+                            <option value=0>-- Etat Réclamation --</option>
+                            <option *ngFor="let state of states" [value]="state.id_reclamation_state">
+                                {{state.name_reclamation_state}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-success " (click)="addState()"> Changer l'état </button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            
+
+            <div class="card" id="found1" #found1>
+                <div class="card-header">
+                    Information Personnelle
+                </div>
+            
+                <div class="card-body row " >
+                    <div class="col">
+                        <p>
+                         <b>Nom Prénom</b> : {{reclamation.reclaimer.last_name_reclaimer}} {{reclamation.reclaimer.first_name_reclaimer}}
+                        </p>
+                        <p>
+                        <b>Telephone</b>  : {{reclamation.reclaimer.phone_number_reclaimer}}
+                        </p>
+                       
+                    </div>
+            
+                    <div class="col">
+                        <p>
+                           <b>Addresse</b> : {{reclamation.reclaimer.address_reclaimer}}
+                        </p>
+                        <p>
+                            <b>Email</b> : {{reclamation.reclaimer.email_reclaimer}}
+                        </p>
+                    </div>
+                    
+                </div>
+            
+                <div class="card-header">
+                    Détail de réclamation
+                </div>
+            
+                <div class="card-body">
+                    
+                    <div class="row">
+                        <p class="col">
+                       
+                            <b>Code Reclamation</b> : {{reclamation.code_reclamation}}
+                        </p>
+                        <p class="col">
+                            <b>Type</b> : {{reclamation.reclamation_type.name_reclamation_type}}
+                        </p>
+                    </div>
+                    <div class="row" *ngIf="reclamation.availabilities.length > 0">
+                        <p class="col">
+                           <b>Disponibilité</b> :  <span *ngFor="let disponibilite of reclamation.availabilities"> {{disponibilite.day_availability}} </span>
+                        </p>
+                        <p class="col">
+                            <b> Horaire</b> : {{reclamation.availabilities[0].pivot.horaire}}
+                        </p>
+                      
+                    </div>
+                    <p>
+                        <b>Description</b> : <span  [innerHTML]="reclamation.description | html"></span>
+                    </p>
+                    
+                </div>
+            
+                <div class="card-header">
+                    Suivie de la réclamation
+                </div>
+            
+                <div class="card-body">
+                   <div *ngIf="!serviceAuth.isLoggedIn()">
+                    <div  *ngFor="let state of reclamation.reclamation_states; let last=last">
+                        <div *ngIf="last==true" class="row">
+                            <div class="col">
+                                <b>Etat</b> : {{state.name_reclamation_state}}
+                            </div>
+                    
+                            <div class="col">
+                                <b>Date</b> : {{state.pivot.created_at}}
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                   
+
+                    <div *ngIf="serviceAuth.isLoggedIn()" >
+                       <div class="row" *ngFor="let state of reclamation.reclamation_states; ">
+                        <div class="col">
+                            <b>Etat</b> : {{state.name_reclamation_state}}
+                        </div>
+                
+                        <div class="col">
+                            <b>Date</b> : {{state.pivot.created_at}}
+                        </div>
+                       </div>
+                           
+                        
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+    
+    <div class="row pt-3" *ngIf="serviceAuth.isLoggedIn()">
+         
+        <div class="col" style="text-align: center;"> <button (click)="print(reclamation.code_reclamation)"  class="center btn-success btn">
+            Imprimer La Reclamation
+        </button>  </div>
+
+        <div class="col">
+            <button (click)="delete(reclamation.id_reclamation)" class="btn-danger btn">
+                Supprimer La Reclamation
+            </button>
+            
+        </div>
+        
+    </div>
+      </div>
+       
+    
+
+    </ng-template>
+     
+    
+</div >
+

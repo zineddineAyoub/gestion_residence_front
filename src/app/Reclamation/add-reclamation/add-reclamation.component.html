@@ -1,0 +1,126 @@
+<div class="alert alert-danger" *ngIf="form.errors">
+    Error inserting this
+</div>
+
+<div class="alert alert-success" *ngIf="success">
+    Article ajouté avec succées !
+</div>
+
+<div class="m-3 p-3 title" >
+    <div class="pt-2">
+    <h3 style="text-align: center;" class="p-2">Ajouter une Réclamation</h3>
+
+    <hr>
+    <form (keydown.enter)="$event.target.tagName == 'TEXTAREA'" [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+        <h4>Information Personnelle</h4>
+        <div class="row">
+            <div class="form-group col">
+                <label for="nom">Nom</label>
+                <input formControlName="first_name_reclaimer" id="nom" type="text" class="form-control" required >
+            </div>
+            <div class="form-group col">
+                <label for="prenom">Prenom</label>
+                <input formControlName="last_name_reclaimer" id="prenom" type="text" class="form-control" required >
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group col">
+                <label for="email">Email</label>
+                <input formControlName="email_reclaimer" id="email" type="email" class="form-control" required  >
+            </div>
+    
+            <div class="form-group col">
+                <label for="telephone">Numero Telephone </label>
+                <input  (keyup)="telephone($event)" formControlName="phone_number_reclaimer"  id="telephone" type="tel" pattern="(\+212|0)([ \-_/]*)(\d[ \-_/]*){9}" class="form-control" required >
+            </div>
+        </div>
+        
+        <div>
+            <label for="address">Address</label>
+           
+            <div class="row">
+            <div class="col-2"> </div>
+                <div class="col-8">
+                    <div *ngIf="noAddress" class="alert alert-danger">
+                        Veuillez indiquer votre localisation
+                    </div>
+                    
+                    <agm-map style="height: 200px;" [latitude]="lat1" [longitude]="lng1" [zoom]="zoom">
+                        <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>
+                     </agm-map>
+                     <div style="text-align: center;">
+                        <button type="button" class="btn btn-warning m-2 col-4" (click)="googleMaps()">  Localiser </button>
+                    </div>
+                      </div>
+                <div class="form-group col">
+                    <textarea rows="7" formControlName="address_reclaimer" id="address" type="text" class="form-control"  hidden> </textarea>
+                </div>
+                
+
+                   
+            </div>
+            
+        </div>
+        
+    <hr>
+        <h4>Détail de la déclaration</h4>
+            
+        <div class="row">
+            <div class="form-group col-8">
+                
+                    <label for="description">Description</label>
+                    <textarea formControlName="description" class="form-control" name="description" id="description"  rows="4" required></textarea>
+                    
+            
+                </div>
+                <div class=" form-group col-4">
+                    <label for="type">Type de réclamation</label>
+                    <select formControlName="id_reclamation_type" id="type" class="form-control" required>
+                     <option value="">-- Type Réclamation --</option>
+                        <option *ngFor="let type of types" [value]="type.id_reclamation_type">
+                            {{type.name_reclamation_type}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+               <div *ngIf="form.value['id_reclamation_type']==1">
+                <label for="">Disponibilité</label>
+                <div *ngIf="daysRequired" class="alert alert-warning">
+                    Veuillez selectionner votre disponibiltés
+                </div>
+                <div class="row form-group">
+                      <div *ngFor="let day of days" class="col">
+                        <div class="form-check required">
+                            <input class="form-check-input" type="checkbox" id={{day.id_availability}} value="option3" (click)="checked(day.id_availability)" >
+                            <label class="form-check-label" for={{day.id_availability}}>{{day.day_availability}} </label>
+                          </div>
+                      </div>
+                      
+                </div>
+                <div class="form-group ">
+                    <label for="horaire">A quelle heure</label>
+                    <input formControlName="horaire" id="horaire" type="text" class="form-control" required >
+                </div>
+               </div>
+                
+                
+            <div style="text-align: center;">
+             <input type="submit" value="Envoyer" class="btn btn-success m-3 col-4">
+            </div>
+             
+               
+           
+               
+            
+    </form>
+
+    
+</div>
+</div>
+
+<ng-template #loading>
+<div class="spinner-border">
+
+</div>
+</ng-template>

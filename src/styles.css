@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min2.css";
+
+h3.title,div.title,tr.title{
+    border: #283048 2px solid;
+    color : #283048;
+   
+    background-color: #dce1ec;
+   background-color: #eeeeee;
+
+    border: 5px double #859398;
+  
+  
+border-radius: 40px 40px 40px 40px;
+}
+
+body
+{
+    background: linear-gradient(to bottom, #127e61, #283048); 
+}

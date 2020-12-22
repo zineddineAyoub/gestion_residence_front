@@ -1,0 +1,25 @@
+<div class="alert alert-danger"  *ngIf="-1 > 0; else noArticle" >
+    {{error}}
+</div>
+
+<ng-template #noArticle> 
+  <div *ngIf="loaded" class="card border-primary mb-3">
+    <div class="row">
+      <div class="col-8">
+        <div class="card-body">
+          <h6 class="title">Publié le {{article.created_at}}</h6>
+          <h3 ><b>{{article.title}}</b></h3>
+          <p class="content"> <span  [innerHTML]="article.content"></span></p>
+          <div>
+            <a routerLink="/article" class="btn btn-primary">Acceuil</a>
+           </div>
+        </div>
+        
+      </div>
+
+      <div class="col-4 mx-auto" *ngIf="article.picture != null">
+       <img src="{{link}}{{article.picture}}" alt="{{article.title}}" width="100%">
+      </div>
+    </div>
+  </div>
+</ng-template>
